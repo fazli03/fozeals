@@ -1,9 +1,9 @@
-export default function Footer() {
-  const email = "fazli.maulana.035@gmail.com";
-  const subject = "Hi Fazli — Let's Collaborate";
-  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-    email,
-  )}&su=${encodeURIComponent(subject)}`;
+// export default function Footer() {
+//   const email = "fazli.maulana.035@gmail.com";
+//   const subject = "Hi Fazli — Let's Collaborate";
+//   const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+//     email,
+//   )}&su=${encodeURIComponent(subject)}`;
 
   return (
     <footer>
