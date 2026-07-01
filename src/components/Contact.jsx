@@ -1,6 +1,9 @@
 export default function Contact() {
-  const mailto =
-    "mailto:fazli.maulana.035@gmail.com?subject=Hi%20Fazli%20%E2%80%94%20Let's%20Collaborate";
+  const email = "fazli.maulana.035@gmail.com";
+  const subject = "Hi Fazli — Let's Collaborate";
+  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    email,
+  )}&su=${encodeURIComponent(subject)}`;
 
   return (
     <section id="inquiries">
@@ -11,7 +14,12 @@ export default function Contact() {
           Available for freelance and collaborative work. Let's build something
           extraordinary.
         </p>
-        <a href={mailto} className="contact-email">
+        <a
+          href={gmailCompose}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact-email"
+        >
           fazli.maulana.035@gmail.com
         </a>
         <div className="contact-links">
