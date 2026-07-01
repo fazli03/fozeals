@@ -1,6 +1,9 @@
 export default function Footer() {
-  const mailto =
-    "mailto:fazli.maulana.035@gmail.com?subject=Hi%20Fazli%20%E2%80%94%20Let's%20Collaborate";
+  const email = "fazli.maulana.035@gmail.com";
+  const subject = "Hi Fazli — Let's Collaborate";
+  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    email,
+  )}&su=${encodeURIComponent(subject)}`;
 
   return (
     <footer>
@@ -8,9 +11,22 @@ export default function Footer() {
         © 2026 Fazli Maulana — All Rights Reserved
       </span>
       <ul className="footer-links">
-        <li><a href={mailto}>Email</a></li>
         <li>
-          <a href="https://github.com/fazli03" target="_blank" rel="noopener noreferrer">
+          <a
+            href={gmailCompose}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-email"
+          >
+            fazli.maulana.035@gmail.com
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/fazli03"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
           </a>
         </li>
