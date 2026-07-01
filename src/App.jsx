@@ -18,6 +18,7 @@ function Portfolio() {
   useReveal();
 
   useEffect(() => {
+    document.title = 'Fozeals';
     const overlay = document.getElementById('page-overlay');
     const t = setTimeout(() => {
       if (overlay) {

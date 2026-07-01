@@ -18,8 +18,11 @@ export default function ProjectDetail() {
       .then((p) => {
         setProject(p);
         setStatus("ready");
+        document.title = p.name;
       })
       .catch(() => setStatus("error"));
+
+    return () => { document.title = 'Fozeals'; };
   }, [slug]);
 
   if (status === "loading")
@@ -46,6 +49,7 @@ export default function ProjectDetail() {
   const {
     name,
     category,
+    projectType,
     year,
     role,
     timeline,
@@ -59,6 +63,9 @@ export default function ProjectDetail() {
     pageImages,
   } = project;
   const images = pageImages?.length ? pageImages : heroImage ? [heroImage] : [];
+  const isWeb = projectType === "web";
+  const prototypeLabel = isWeb ? "Live Demo ↗" : "Lihat Prototype ↗";
+  const codeLabel = isWeb ? "Lihat Repository ↗" : "Lihat Referensi ↗";
 
   return (
     <div style={S.page}>
@@ -153,12 +160,12 @@ export default function ProjectDetail() {
                 rel="noreferrer"
                 style={S.link}
               >
-                Lihat Prototype ↗
+                {prototypeLabel}
               </a>
             )}
             {codeUrl && (
               <a href={codeUrl} target="_blank" rel="noreferrer" style={S.link}>
-                Lihat Code ↗
+                {codeLabel}
               </a>
             )}
           </div>

@@ -3,10 +3,15 @@ import { supabase } from '../lib/supabase';
 import { getProjects, saveProject, deleteProject } from '../api';
 
 const EMPTY = {
-  dbId: null, id: '', name: '', category: '', year: '', role: '',
+  dbId: null, id: '', name: '', category: '', projectType: 'design', year: '', role: '',
   timeline: '', tools: '', problemStatement: '', solutions: '',
   prototypeUrl: '', codeUrl: '', heroImage: '', pageImages: [],
 };
+
+const PROJECT_TYPES = [
+  { value: 'design', label: 'UI/UX Design' },
+  { value: 'web', label: 'Web Development' },
+];
 
 export default function AdminDashboard() {
   const [projects, setProjects]   = useState([]);
@@ -39,7 +44,7 @@ export default function AdminDashboard() {
   function openEdit(p) {
     setForm({
       dbId: p.dbId, id: p.id, name: p.name || '',
-      category: p.category || '', year: p.year || '',
+      category: p.category || '', projectType: p.projectType || 'design', year: p.year || '',
       role: p.role || '', timeline: p.timeline || '',
       tools: (p.tools || []).join(', '),
       problemStatement: p.problemStatement || '',
@@ -123,6 +128,8 @@ export default function AdminDashboard() {
             <div style={{ flex: 1 }}>
               <h3 style={S.rowName}>{p.name}</h3>
               <div style={S.meta}>
+                <span style={S.typeBadge}>{PROJECT_TYPES.find(t => t.value === (p.projectType || 'design'))?.label}</span>
+                <span>·</span>
                 <span>{p.category || '—'}</span>
                 <span>·</span>
                 <span>{p.year || '—'}</span>
@@ -149,6 +156,11 @@ export default function AdminDashboard() {
 
             <div style={S.modalBody}>
               <Field label="Nama Project *"><input style={S.input} value={form.name} onChange={e => set('name', e.target.value)} placeholder="cth. FitStudio App" /></Field>
+              <Field label="Tipe Project *">
+                <select style={S.input} value={form.projectType} onChange={e => set('projectType', e.target.value)}>
+                  {PROJECT_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                </select>
+              </Field>
               <div style={S.grid2}>
                 <Field label="Kategori"><input style={S.input} value={form.category} onChange={e => set('category', e.target.value)} placeholder="UI/UX Design" /></Field>
                 <Field label="Tahun"><input style={S.input} value={form.year} onChange={e => set('year', e.target.value)} placeholder="2024" /></Field>
@@ -159,8 +171,17 @@ export default function AdminDashboard() {
               <Field label="Problem Statement"><textarea style={{ ...S.input, minHeight: 80, resize: 'vertical' }} value={form.problemStatement} onChange={e => set('problemStatement', e.target.value)} /></Field>
               <Field label="Solusi"><textarea style={{ ...S.input, minHeight: 80, resize: 'vertical' }} value={form.solutions} onChange={e => set('solutions', e.target.value)} /></Field>
               <div style={S.grid2}>
-                <Field label="URL Prototype"><input style={S.input} value={form.prototypeUrl} onChange={e => set('prototypeUrl', e.target.value)} placeholder="https://figma.com/..." /></Field>
-                <Field label="URL Code / Live"><input style={S.input} value={form.codeUrl} onChange={e => set('codeUrl', e.target.value)} placeholder="https://github.com/..." /></Field>
+                {form.projectType === 'web' ? (
+                  <>
+                    <Field label="URL Live Demo"><input style={S.input} value={form.prototypeUrl} onChange={e => set('prototypeUrl', e.target.value)} placeholder="https://myapp.vercel.app" /></Field>
+                    <Field label="URL Repository"><input style={S.input} value={form.codeUrl} onChange={e => set('codeUrl', e.target.value)} placeholder="https://github.com/..." /></Field>
+                  </>
+                ) : (
+                  <>
+                    <Field label="URL Prototype (Figma, dll)"><input style={S.input} value={form.prototypeUrl} onChange={e => set('prototypeUrl', e.target.value)} placeholder="https://figma.com/..." /></Field>
+                    <Field label="URL Referensi / Code (opsional)"><input style={S.input} value={form.codeUrl} onChange={e => set('codeUrl', e.target.value)} placeholder="https://github.com/..." /></Field>
+                  </>
+                )}
               </div>
               <Field label="URL Hero Image"><input style={S.input} value={form.heroImage} onChange={e => set('heroImage', e.target.value)} placeholder="https://..." /></Field>
 
@@ -243,6 +264,7 @@ const S = {
   num:        { fontFamily: C.mono, fontSize: 10, letterSpacing: '0.15em', color: C.muted, minWidth: 40 },
   rowName:    { fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', textTransform: 'uppercase', marginBottom: 4 },
   meta:       { display: 'flex', gap: 12, fontFamily: C.mono, fontSize: 10, color: C.muted, letterSpacing: '0.1em' },
+  typeBadge:  { color: C.accent },
   muted:      { fontFamily: C.mono, fontSize: 11, color: C.muted, letterSpacing: '0.15em', padding: '32px 0' },
   empty:      { padding: 80, textAlign: 'center', border: `1px dashed ${C.border}` },
   btnPrimary: { display: 'inline-flex', alignItems: 'center', gap: 8, background: C.text, color: C.bg, fontFamily: C.mono, fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', padding: '16px 32px', border: 'none', cursor: 'pointer' },

@@ -16,13 +16,13 @@ export default function Cursor() {
     const onMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      if (dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
     };
 
-    const loop = () => {
-      ringX += (mouseX - ringX) * 0.5;
-      ringY += (mouseY - ringY) * 0.5;
-      if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+    const loop = () => {  
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
       raf = requestAnimationFrame(loop);
     };
 
