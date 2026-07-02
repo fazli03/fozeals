@@ -162,7 +162,7 @@ section {
   letter-spacing: 0.2em;
   color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: 32px;
+  margin-bottom: 92px;
   opacity: 0;
   transform: translateY(12px);
   transition:
@@ -204,7 +204,7 @@ section {
   font-size: 13px;
   line-height: 1.8;
   color: var(--text-muted);
-  max-width: 320px;
+  max-width: 720px;
   opacity: 0;
   transform: translateY(16px);
   transition:
