@@ -19,6 +19,7 @@ function Portfolio() {
 
   useEffect(() => {
     document.title = 'Fozeals';
+    document.body.classList.add('custom-cursor');
     const overlay = document.getElementById('page-overlay');
     const t = setTimeout(() => {
       if (overlay) {
@@ -28,7 +29,10 @@ function Portfolio() {
       }
       document.body.classList.add('loaded');
     }, 150);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      document.body.classList.remove('custom-cursor', 'loaded');
+    };
   }, []);
 
   return (

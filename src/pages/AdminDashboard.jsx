@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase';
 import { getProjects, saveProject, deleteProject } from '../api';
 
 const EMPTY = {
-  dbId: null, id: '', name: '', category: '', projectType: 'design', year: '', role: '',
+  dbId: null, id: '', name: '', category: '', projectType: 'design', year: '', month: '', role: '',
   timeline: '', tools: '', problemStatement: '', solutions: '',
   prototypeUrl: '', codeUrl: '', heroImage: '', pageImages: [],
 };
@@ -11,6 +11,11 @@ const EMPTY = {
 const PROJECT_TYPES = [
   { value: 'design', label: 'UI/UX Design' },
   { value: 'web', label: 'Web Development' },
+];
+
+const MONTHS = [
+  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
 ];
 
 export default function AdminDashboard() {
@@ -45,7 +50,7 @@ export default function AdminDashboard() {
     setForm({
       dbId: p.dbId, id: p.id, name: p.name || '',
       category: p.category || '', projectType: p.projectType || 'design', year: p.year || '',
-      role: p.role || '', timeline: p.timeline || '',
+      month: p.month || '', role: p.role || '', timeline: p.timeline || '',
       tools: (p.tools || []).join(', '),
       problemStatement: p.problemStatement || '',
       solutions: p.solutions || '',
@@ -164,6 +169,12 @@ export default function AdminDashboard() {
               <div style={S.grid2}>
                 <Field label="Kategori"><input style={S.input} value={form.category} onChange={e => set('category', e.target.value)} placeholder="UI/UX Design" /></Field>
                 <Field label="Tahun"><input style={S.input} value={form.year} onChange={e => set('year', e.target.value)} placeholder="2024" /></Field>
+                <Field label="Bulan Dibuat">
+                  <select style={S.input} value={form.month} onChange={e => set('month', e.target.value)}>
+                    <option value="">—</option>
+                    {MONTHS.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
+                  </select>
+                </Field>
                 <Field label="Role"><input style={S.input} value={form.role} onChange={e => set('role', e.target.value)} placeholder="UI/UX Designer" /></Field>
                 <Field label="Timeline"><input style={S.input} value={form.timeline} onChange={e => set('timeline', e.target.value)} placeholder="Jan – Mar 2024" /></Field>
               </div>
