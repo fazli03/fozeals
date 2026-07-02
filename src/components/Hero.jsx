@@ -15,8 +15,9 @@ export default function Hero() {
 
         <div className="hero-rule"></div>
         <p className="hero-desc">
-          Crafting digital experiences that live at the intersection of
-          precision and provocation. Interface design that refuses to disappear.
+          Designing thoughtful digital products through research, strategy, and
+          user-centered experiences that create value for both users and
+          businesses.
         </p>
       </div>
 
